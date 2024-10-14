@@ -1,22 +1,22 @@
 #include <iostream>
 #include <string>
-#include "HashMap/HashMap.h" // Asegúrate de que la ruta sea correcta
+#include "HashMap/HashMapList.h" // Asegúrate de que la ruta sea correcta
 
 using namespace std;
 
 int main() {
     unsigned int tamanoTabla = 11; // Tamaño de la tabla hash
-    HashMap<int, string> empleados(tamanoTabla);
+    HashMapList<int, string> votantes(tamanoTabla);
 
     int opcion;
     int clave;
-    string nombre;
+    string candidato;
 
     do {
-        cout << "1. Agregar empleado\n";
-        cout << "2. Buscar empleado\n";
-        cout << "3. Eliminar empleado\n";
-        cout << "4. Ver todos los empleados\n";
+        cout << "1. Agregar voto\n";
+        cout << "2. Buscar voto\n";
+        cout << "3. Eliminar voto\n";
+        cout << "4. Ver todos los votos\n";
         cout << "0. Salir\n";
         cout << "Selecciona una opcion: ";
         cin >> opcion;
@@ -25,11 +25,11 @@ int main() {
             case 1:
                 cout << "Ingrese la clave: ";
                 cin >> clave;
-                cout << "Ingrese el nombre: ";
+                cout << "Ingrese el candidato: ";
                 cin.ignore(); // Para ignorar el salto de línea
-                getline(cin, nombre);
+                getline(cin, candidato);
                 try{
-                    empleados.put(clave, nombre);
+                    votantes.put(clave, candidato);
                     cout << "empleado agregado correctamente.\n";
                 }catch(int e){
                     if(e==409)
@@ -43,11 +43,11 @@ int main() {
                 cout << "Ingrese la clave a buscar: ";
                 cin >> clave;
                 try {
-                    nombre = empleados.get(clave);
-                    cout << "clave del empleado " << clave << ": nombre del empleado: " << nombre << endl;
+                    candidato = votantes.get(clave);
+                    cout << "clave del votante " << clave << ": nombre del candidato: " << candidato << endl;
                 } catch (int e) {
                     if (e == 404) {
-                        cout << "empleado no encontrada.\n";
+                        cout << "votante no encontrada.\n";
                     } else {
                         cout << "Error: Conflicto en la búsqueda.\n";
                     }
@@ -55,15 +55,15 @@ int main() {
                 break;
 
             case 3:
-                cout << "Ingrese el empleado a eliminar: ";
+                cout << "Ingrese el voto a eliminar: ";
                 cin >> clave;
-                empleados.remove(clave);
-                cout << "empleado eliminado correctamente (si existia).\n";
+                votantes.remove(clave);
+                cout << "voto eliminado correctamente (si existia).\n";
                 break;
 
             case 4:
-                cout << "Todos los empleados:\n";
-                empleados.print(); // Imprimir todas las entradas
+                cout << "Todos los votos:\n";
+                votantes.print(); // Imprimir todas las entradas
                 break;
 
             case 0:
